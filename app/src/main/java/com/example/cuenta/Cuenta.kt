@@ -1,35 +1,33 @@
 package com.example.cuenta
 
-import kotlin.math.roundToInt
-
 class Cuenta {
     private var DNI: Int = 0
-    private val numeroCuenta: Int = 10000
-    private var tipoInteres = 0
-    private var saldo = 0
+    private var numeroCuenta: Int = 10001
+    private var interes: Float = 0.0f
+    private var saldo: Int = 0
 
     //Constructor por defecto
     fun Cuenta() {}
 
     //Constructor con parámetros
-    fun Cuenta(DNI: Int, tipoInteres: Int, saldo: Int) {
+    fun Cuenta(DNI: Int, interes: Float, saldo: Int) {
         this.DNI = DNI
-        this.tipoInteres = tipoInteres
+        this.interes = interes
         this.saldo = saldo
     }
 
 
     //getters y setters
-    fun setDNI(d: Int) {
-        DNI = d
+    fun setDNI(DNI: Int) {
+        this.DNI = DNI
     }
 
-    fun setTipoInteres(n: Int) {
-        tipoInteres = n
+    fun setInteres(interes: Float) {
+        this.interes = interes
     }
 
-    fun setSaldo(n: Int) {
-        saldo = n
+    fun setSaldo(saldo: Int) {
+        this.saldo = saldo
     }
 
     fun getDNI(): Int {
@@ -40,58 +38,60 @@ class Cuenta {
         return numeroCuenta
     }
 
-    fun getTipoInteres(): Int {
-        return tipoInteres
-    }
+   fun getInteres(): Float{
+       return interes
+   }
 
     fun getSaldo(): Int {
         return saldo
     }
 
-    //actualizar saldo
-    fun actSaldo(): Int{
-        var nuevoSaldo: Int = (saldo*tipoInteres).toInt()/365
+    /*Metodo para mostrar los datos de la cuenta, utilizando una
+    cadena de String, mediante las propiedades del objecto*/
+    fun mostrarDatos(): String{
+        var datos: String = "Los datos de la cuenta son:" + "\n" +
+                "DNI del titular: " + getDNI() + "\n" +
+                "Número de cuenta: " + getNumeroCuenta() + "\n" +
+                "Tipo de interés: " + getInteres() + "\n" +
+                "Saldo: " + getSaldo()
 
-        println("Su nuevo saldo es $nuevoSaldo")
-        return nuevoSaldo
+        return datos
     }
 
-    //método ingreso
-    fun ingreso(n: Double): Boolean {
+    /*Método ingreso que me permite ingresar dinero a la cuenta, preguntando que el ingreso de dinero
+    sea mayor a cero y aplicando la operacion al saldo y mostrar un mensaje del nuevo saldo */
+    fun ingresarDinero(ingresoDinero: Double): Boolean {
         var ingresoCorrecto = true
-        if (n < 0) {
+        if (ingresoDinero < 0) {
             ingresoCorrecto = false
         } else {
-            saldo = (saldo + n).toInt()
-            println("Se ha ingresado $n el nuevo saldo es $saldo")
+            saldo = (saldo + ingresoDinero).toInt()
+            println("Se ha ingresado $ingresoDinero el nuevo saldo es $saldo")
         }
         return ingresoCorrecto
     }
 
-    fun retirar_dinero(cantidad: Double): Boolean{
+    /*Metodo que permite el retiro de dinero de la cuenta,utilizando una condicion que verifique
+     que la cantidad de dinero a retirar es menor a la cantidad del saldo de la cuenta. */
+    fun retirarDinero(cantidad: Double): Boolean{
         var retiro = true
         if (saldo < cantidad){
             retiro = false
             println("El monto a retirar es mayor al saldo disponible")
         }else{
-            var newsaldo: Int = saldo - cantidad.toInt()
-            println("Se han retirado $cantidad ahora tiene un saldo de $newsaldo " )
+            saldo -= cantidad.toInt()
+            println("Se han retirado $cantidad ahora tiene un saldo de $saldo " )
         }
         return retiro
     }
 
-    fun numCuenta():Int{
-        var num: Int = numeroCuenta
-        return num+1
+    /*Metodo que permite actualiar el saldo, aplicando el interes diario al saldo actual
+     y mostrando un mensaje del saldo actualizado*/
+    fun actualizarSaldo(): Float{
+        var interesDiario: Float = (saldo*interes)/365
+        var nuevoSaldo: Float = saldo - interesDiario
+        println("El interes diario es de $interesDiario, la actualizacion del saldo es $nuevoSaldo")
+        return interesDiario
     }
 
-    fun mostrarDatos(): String{
-      var datos: String = "Los datos de la cuenta son:" + "\n" +
-        "DNI del titular: " + getDNI() + "\n" +
-        "Número de cuenta: " + numCuenta() + "\n" +
-        "Tipo de interés: " + getTipoInteres() + "\n" +
-        "Saldo: " + actSaldo()
-
-        return datos
-    }
 }
