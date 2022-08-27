@@ -1,5 +1,11 @@
 package com.example.cuenta
 
+    /**
+    * A group of *members*.
+    * Esta clase Cuenta  me permite definirThis class has no useful logic; it's just a documentation example.
+    * @property name the name of this group.
+    * @constructor Se crea un contructor por defecto y uno con parametros.
+    */
 class Cuenta {
     private var DNI: Int = 0
     private var numeroCuenta: Int = 10001
@@ -9,8 +15,8 @@ class Cuenta {
     //Constructor por defecto
     fun Cuenta() {}
 
-    //Constructor con parámetros
-    fun Cuenta(DNI: Int, interes: Float, saldo: Int) {
+
+fun Cuenta(DNI: Int, interes: Float, saldo: Int) {
         this.DNI = DNI
         this.interes = interes
         this.saldo = saldo
@@ -46,8 +52,10 @@ class Cuenta {
         return saldo
     }
 
-    /*Metodo para mostrar los datos de la cuenta, utilizando una
-    cadena de String, mediante las propiedades del objecto*/
+        /**
+         * Adds a [member] to this group.
+         * @return the new size of the group.
+         */
     fun mostrarDatos(): String{
         var datos: String = "Los datos de la cuenta son:" + "\n" +
                 "DNI del titular: " + getDNI() + "\n" +
@@ -58,40 +66,39 @@ class Cuenta {
         return datos
     }
 
-    /*Método ingreso que me permite ingresar dinero a la cuenta, preguntando que el ingreso de dinero
-    sea mayor a cero y aplicando la operacion al saldo y mostrar un mensaje del nuevo saldo */
-    fun ingresarDinero(ingresoDinero: Double): Boolean {
-        var ingresoCorrecto = true
-        if (ingresoDinero < 0) {
-            ingresoCorrecto = false
-        } else {
-            saldo = (saldo + ingresoDinero).toInt()
-            println("Se ha ingresado $ingresoDinero el nuevo saldo es $saldo")
+        /**
+         * Adds a [member] to this group.
+         * @return the new size of the group.
+         */
+    fun ingresarDinero(ingresoDinero: Double): String {
+        if (ingresoDinero <= 0) {
+            return "Usted no ha ingresado dinero o el monto ingresado es cero"
         }
-        return ingresoCorrecto
+        saldo += ingresoDinero.toInt()
+
+        return "El dinero se ingreso satifactoriamente"
     }
 
-    /*Metodo que permite el retiro de dinero de la cuenta,utilizando una condicion que verifique
-     que la cantidad de dinero a retirar es menor a la cantidad del saldo de la cuenta. */
-    fun retirarDinero(cantidad: Double): Boolean{
-        var retiro = true
+        /**
+         * Adds a [member] to this group.
+         * @return the new size of the group.
+         */
+    fun retirarDinero(cantidad: Double): String{
         if (saldo < cantidad){
-            retiro = false
-            println("El monto a retirar es mayor al saldo disponible")
-        }else{
-            saldo -= cantidad.toInt()
-            println("Se han retirado $cantidad ahora tiene un saldo de $saldo " )
+             return "El monto a retirar es mayor al saldo disponible"
         }
-        return retiro
+            saldo -= cantidad.toInt()
+        return "El dinero se retiro satifactoriamente"
     }
 
-    /*Metodo que permite actualiar el saldo, aplicando el interes diario al saldo actual
-     y mostrando un mensaje del saldo actualizado*/
-    fun actualizarSaldo(): Float{
+        /**
+         * Adds a [member] to this group.
+         * @return the new size of the group.
+         */
+    fun actualizarSaldo(): String{
         var interesDiario: Float = (saldo*interes)/365
-        var nuevoSaldo: Float = saldo - interesDiario
-        println("El interes diario es de $interesDiario, la actualizacion del saldo es $nuevoSaldo")
-        return interesDiario
+        saldo += interesDiario.toInt()
+        return "Saldo actualizado"
     }
 
 }
